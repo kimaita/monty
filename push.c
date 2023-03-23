@@ -19,7 +19,6 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-
 	pVal = atoi(push_arg);
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
@@ -42,12 +41,10 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		/**puts new node on the bottom **/
 		tmp = *stack;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new;
 		new->prev = tmp;
 	}
-
 }
