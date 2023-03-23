@@ -9,7 +9,15 @@
 instruction_t *parse_line(char *line)
 {
 	char *opcode;
+	int i = 0;
 	instruction_t *instruction;
+	instruction_t instructions[] = {
+		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop},
+		{"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub},
+		{"div", divide}, {"mul", multiply}, {"mod", moddy},
+		{"pchar", pchar}, {"pstr", pstr}, {"rotl", rotl},
+		{"rotr", rotr}, {"stack", stack}, {"queue", queue}
+	};
 
 	opcode = get_opcode(line);
 	instruction = malloc(sizeof(*instruction));
@@ -19,51 +27,17 @@ instruction_t *parse_line(char *line)
 		exit(EXIT_FAILURE);
 	}
 
-	instruction->opcode = opcode;
-	instruction->f = NULL;
-
-	/* opcode control statements */
-
-	if (instruction->opcode)
+	/* opcode selection */
+	while (i < 17)
 	{
-		if (strcmp(instruction->opcode, "push") == 0)
-			instruction->f = push;
-		if (strcmp(instruction->opcode, "pall") == 0)
-			instruction->f = pall;
-		if (strcmp(instruction->opcode, "pint") == 0)
-			instruction->f = pint;
-		if (strcmp(instruction->opcode, "pop") == 0)
-			instruction->f = pop;
-		if (strcmp(instruction->opcode, "swap") == 0)
-			instruction->f = swap;
-		if (strcmp(instruction->opcode, "add") == 0)
-			instruction->f = add;
-		if (strcmp(instruction->opcode, "nop") == 0)
-			instruction->f = nop;
-		if (strcmp(instruction->opcode, "sub") == 0)
-			instruction->f = sub;
-		if (strcmp(instruction->opcode, "div") == 0)
-			instruction->f = divide;
-		if (strcmp(instruction->opcode, "mul") == 0)
-			instruction->f = multiply;
-		if (strcmp(instruction->opcode, "mod") == 0)
-			instruction->f = moddy;
-		if (strcmp(instruction->opcode, "pchar") == 0)
-			instruction->f = pchar;
-		if (strcmp(instruction->opcode, "pstr") == 0)
-			instruction->f = pstr;
-		if (strcmp(instruction->opcode, "rotl") == 0)
-			instruction->f = rotl;
-		if (strcmp(instruction->opcode, "rotr") == 0)
-			instruction->f = rotr;
-		if (strcmp(instruction->opcode, "stack") == 0)
-			instruction->f = stack;
-		if (strcmp(instruction->opcode, "queue") == 0)
-			instruction->f = queue;
+		if (strcmp(opcode, instructions[i].opcode) == 0)
+		{
+			instruction->opcode = opcode;
+			instruction->f = instructions[i].f;
+			return (instruction);
+		}
+		i++;
 	}
-
+	instruction->opcode = opcode;
 	return (instruction);
-
-
-
 }
