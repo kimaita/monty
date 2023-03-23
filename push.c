@@ -15,7 +15,7 @@ void push(stack_t **stack, unsigned int line_number)
 	/*if push, tests if the push_arg was valid or not */
 	if (!is_int(push_arg))
 	{
-		fprintf(stdout, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
@@ -23,7 +23,7 @@ void push(stack_t **stack, unsigned int line_number)
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
-		fprintf(stdout, "Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	new->n = pVal;
