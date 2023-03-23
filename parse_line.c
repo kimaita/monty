@@ -9,7 +9,7 @@
 instruction_t *parse_line(char *line)
 {
 	char *opcode;
-	int i = 0;
+	int i;
 	instruction_t *instruction;
 	instruction_t instructions[] = {
 	    {"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub}, {"div", divide}, {"mul", multiply}, {"mod", moddy}, {"pchar", pchar}, {"pstr", pstr}, {"rotl", rotl}, {"rotr", rotr}, {"stack", stack}, {"queue", queue}};
@@ -23,15 +23,17 @@ instruction_t *parse_line(char *line)
 	}
 	instruction->f = NULL;
 	/* opcode selection */
-	while (i < 17)
+	if (opcode)
 	{
-		if (strcmp(opcode, instructions[i].opcode) == 0)
+		for (i = 0; i < 17; i++)
 		{
-			instruction->opcode = opcode;
-			instruction->f = instructions[i].f;
-			return (instruction);
+			if (strcmp(opcode, instructions[i].opcode) == 0)
+			{
+				instruction->opcode = opcode;
+				instruction->f = instructions[i].f;
+				return (instruction);
+			}
 		}
-		i++;
 	}
 	instruction->opcode = opcode;
 	return (instruction);
